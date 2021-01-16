@@ -18,13 +18,11 @@ global class AccountTotalNumber implements Database.batchable<Sobject>, Database
 		if (!listAccounts.isEmpty()){
 			update listAccounts;
 			System.debug(recordsProcessed + ' records processed. Shazam!');
-        	AsyncApexJob job = [SELECT Id, Status, NumberOfErrors,
-            JobItemsProcessed,
-            TotalJobItems, CreatedBy.Email
-            FROM AsyncApexJob
-            WHERE Id = :bc.getJobId()];
-        	// call some utility to send email
-        	EmailUtils.sendMessage(job, recordsProcessed);
+        		AsyncApexJob job = [SELECT Id, Status, NumberOfErrors, JobItemsProcessed, TotalJobItems, CreatedBy.Email
+           				    FROM AsyncApexJob
+          				    WHERE Id = :bc.getJobId()];
+        		// call some utility to send email
+        		EmailUtils.sendMessage(job, recordsProcessed);
 		}
 	}
 }
